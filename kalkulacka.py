@@ -21,24 +21,26 @@ def deleni(prvni_cislo, druhe_cislo):
     """"dělení"""
     return prvni_cislo / druhe_cislo
 
-operace={
-    "+": scitani,
-    "-": odcitani,
-    "*": nasobeni,
-    "/": deleni
-}
+def matematicke_operace():
+    operace={
+        "+": scitani,
+        "-": odcitani,
+        "*": nasobeni,
+        "/": deleni
+    }
+    return operace
 
 def main():
     pokracovani = "ano"
     while pokracovani == "ano":
         num1 = float(input("Zadejte první číslo: "))
-        for volba in operace:
+        for volba in matematicke_operace():
             print(volba)
 
         uzivate_symbol = input("Vyberte jednu z oprace výše: ")
         num2 = float(input("Zadejte druhe číslo: "))
 
-        vypocet = operace[uzivate_symbol]
+        vypocet = matematicke_operace().get(uzivate_symbol)
         result = vypocet(num1, num2)
 
         print(f"{num1} {uzivate_symbol} {num2} = {result}")
