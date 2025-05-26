@@ -1,0 +1,1 @@
+git config --global byzzy7 "EngetoStudent"
