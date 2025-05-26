@@ -1,3 +1,10 @@
+'''
+výpočet BMI
+
+author: Lukáš Bystroň
+email: lbystron@gmail.com
+'''
+
 jmeno = input("Napiš své jméno: ")
 vaha = int(input("Napiš svojí váhu v kg: "))
 vyska = float(input("Napiš svojí výšku v metrech: "))
