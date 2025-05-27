@@ -1,23 +1,23 @@
 '''
-______  ______  ______
-| ___ \ |  _  \ |  ___|
-| |_/ / | | | | | |_
-|  __/  | | | | |  _|
-| |     | |/ /  | |
-\_|     |___/   \_|
-
 author: Lukáš Bystroň
 email: lbystron@gmail.com
 '''
 
-import PyPDF2
+from PyPDF2 import PdfReader, PdfWriter
+import datetime
+import re
 
-with open("nazev.pdf", "rb") as pdf_file:
-    pdf = PyPDF2.PdfReader(pdf_file)
+with open("nazev.pdf", "rb") as file:
+    reader = PdfReader(file)
+    # Získání aktuálního data ve formátu MM.YYYY
+    datum = datetime.datetime.today().strftime('%m.%Y')
 
-    for i in range(len(pdf.pages)):
-           # Vytvoření nového PDF souboru pro každou stránku
-           with open(f"page_{i+1}.pdf", "wb") as output_file:
-               writer = PyPDF2.PdfWriter()
-               writer.add_page(pdf.pages[i])  # Přidání stránky do nového souboru
-               writer.write(output_file)
+    for i, page in enumerate(reader.pages):
+        text = page.extract_text()
+        nadpis = text[80:96] if text and len(text) >= 96 else f'strana_{i + 1}'
+        nadpis = re.sub(r'[<>:"/\\|?*]', '', nadpis)  # nahrazení zakázaných znaků
+        filename = f'{nadpis}- {datum}.pdf'
+        writer = PdfWriter()
+        writer.add_page(page)
+        with open(filename, 'wb') as output_file:
+            writer.write(output_file)
