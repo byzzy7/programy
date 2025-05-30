@@ -30,19 +30,19 @@ def uzivatel():
 def main():
     pokracovani = "ano"
     while pokracovani == "ano":
-        xx = uzivatel()
-        if xx == 1:
-            polozka = input("Položka: ")
+        volba = uzivatel()
+        if volba == 1:
+            polozka = input("Přidat Položku: ")
             seznam.append(polozka)
-        elif xx == 2:
-            polozka = input("Položka: ")
+        elif volba == 2:
+            polozka = input("Odebrat Položku: ")
             seznam.remove(polozka)
-        elif xx == 3:
+        elif volba == 3:
             print(seznam)
-        elif xx == 4:
+        elif volba == 4:
             seznam.clear()
             print(seznam)
-        elif xx == 5:
+        elif volba == 5:
             ulozeni_csv(seznam)
         else:
             pokracovani = "ne"
@@ -52,7 +52,7 @@ def ulozeni_csv(seznam):
     '''
     uložení seznam do csv souboru
     '''
-    with open("seznam.csv", "w", encoding="utf-8", newline="") as file:
+    with open("../rozdeleni PDF/kontakty.csv", "w", encoding="utf-8", newline="") as file:
         w = csv.writer(file)
         for polozka in seznam:
             w.writerow([polozka])
