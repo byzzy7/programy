@@ -34,6 +34,7 @@ def main():
         if volba == 1:
             polozka = input("Přidat Položku: ")
             seznam.append(polozka)
+            print(seznam)
         elif volba == 2:
             print(seznam)
             polozka = input("Odebrat Položku: ")
