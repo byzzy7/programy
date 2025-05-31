@@ -7,7 +7,7 @@ from PyPDF2 import PdfReader, PdfWriter
 import datetime
 import re
 
-with open("pasky_04.pdf", "rb") as file:
+with open("nazev.pdf", "rb") as file:
     reader = PdfReader(file)
     # Získání aktuálního data ve formátu MM.YYYY
     datum = datetime.datetime.today().strftime('%m.%Y')
