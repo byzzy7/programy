@@ -2,7 +2,7 @@ from PyPDF2 import PdfReader, PdfWriter
 import datetime
 import re
 
-nazev_souboru = "pásky 04 (2).pdf"
+nazev_souboru = "****.pdf"
 
 try:
     with open(nazev_souboru, "rb") as file:
