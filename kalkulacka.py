@@ -1,57 +1,67 @@
-'''
- _         _ _          _            _
-| |       | | |        | |          | |
-| | ____ _| | | ___   _| | __ _  ___| | ____ _
-| |/ / _` | | |/ / | | | |/ _` |/ __| |/ / _` |
-|   < (_| | |   <| |_| | | (_| | (__|   < (_| |
-|_|\_\__,_|_|_|\_\\__,_|_|\__,_|\___|_|\_\__,_|
+import tkinter as tk
 
-author: Lukáš Bystroň
-email: lbystron@gmail.com
-'''
+# Vytvoření hlavního okna
+window = tk.Tk()
+window.title("Kalkulačka")
+window.minsize(200, 200)
+window.resizable(False, False)
 
-def scitani(prvni_cislo, druhe_cislo):
-    """"sčítaní"""
-    return prvni_cislo + druhe_cislo
-            
-def odcitani(prvni_cislo, druhe_cislo):
-    """"Odčítaní"""
-    return prvni_cislo - druhe_cislo
-        
-def nasobeni(prvni_cislo, druhe_cislo):
-    """"násobení"""
-    return prvni_cislo * druhe_cislo
-        
-def deleni(prvni_cislo, druhe_cislo):
-    """"dělení"""
-    return prvni_cislo / druhe_cislo
+# Vytvoření proměnných pro vstupy
+prvni_cislo = tk.StringVar()
+druhe_cislo = tk.StringVar()
+vysledek = tk.StringVar()
 
-def matematicke_operace():
-    operace={
-        "+": scitani,
-        "-": odcitani,
-        "*": nasobeni,
-        "/": deleni
-    }
-    return operace
+# Funkce pro výpočet
+def vypocet():
+    try:
+        num1 = float(prvni_cislo.get())
+        num2 = float(druhe_cislo.get())
+        operator = operace.get()
 
-def main():
-    pokracovani = "ano"
-    while pokracovani == "ano":
-        num1 = float(input("Zadejte první číslo: "))
-        for volba in matematicke_operace():
-            print(volba)
+        if operator == "+":
+            vysledek.set(num1 + num2)
+        elif operator == "-":
+            vysledek.set(num1 - num2)
+        elif operator == "*":
+            vysledek.set(num1 * num2)
+        elif operator == "/":
+            if num2 != 0:
+                vysledek.set(num1 / num2)
+            else:
+                vysledek.set("Nejded dělit nulou")
+    except ValueError:
+        vysledek.set("Není co počítat")
 
-        uzivate_symbol = input("Vyberte jednu z oprace výše: ")
-        num2 = float(input("Zadejte druhe číslo: "))
+# Vytvoření widgetů
+label1 = tk.Label(window, text="První číslo:", font=("Arial", 10))
+label1.pack(pady=5)
+entry1 = tk.Entry(window, textvariable=prvni_cislo, font=("Arial", 10))
+entry1.pack(pady=5)
+label2 = tk.Label(window, text="Druhé číslo:", font=("Arial", 10))
+label2.pack(pady=5)
+entry2 = tk.Entry(window, textvariable=druhe_cislo, font=("Arial", 10))
+entry2.pack(pady=5)
+label3 = tk.Label(window, text="Výsledek:", font=("Arial", 10))
+label3.pack(pady=5)
+entry3 = tk.Entry(window, textvariable=vysledek, state='readonly', font=("Arial", 10))
+entry3.pack(pady=5)
 
-        vypocet = matematicke_operace().get(uzivate_symbol)
-        result = vypocet(num1, num2)
+# Výběr operace
+operace = tk.StringVar(value="+")
+operace_frame = tk.Frame(window)
+operace_frame.pack(pady=5)
+for znak in ["+", "-", "*", "/"]:
+    radio = tk.Radiobutton(operace_frame, text=znak, variable=operace, value=znak, font=("Arial", 10))
+    radio.pack(side=tk.LEFT)
 
-        print(f"{num1} {uzivate_symbol} {num2} = {result}")
-        pokracovani = input(print("Chcete pokračovat ANO nebo znovu NE: "))
-        if pokracovani == "ne":
-            exit()
+# Tlačítko pro výpočet
+button = tk.Button(window, text="Vypočítat", command=vypocet, font=("Arial", 10))
+button.pack(pady=10)
 
-if __name__ == '__main__':
-    main()
+# Tlačítko pro ukončení
+exit_button = tk.Button(window, text="Ukončit", command=window.quit, font=("Arial", 10))
+exit_button.pack(pady=5)
+
+if __name__ == "__main__":
+    #spuštění porgramu
+    window.mainloop()
