@@ -2,7 +2,7 @@ from PyPDF2 import PdfReader, PdfWriter
 import datetime
 import re
 
-nazev_souboru = "xxxxx.pdf"
+nazev_souboru = "****.pdf"
 
 try:
     with open(nazev_souboru, "rb") as file:
@@ -15,6 +15,7 @@ try:
             # Nadpis stránky je extrahován z textu, pozice 74 až 96
             nadpis = text[74:96]
             nadpis = re.sub(r'[<>:"/\\|?*]', '', nadpis) # nahrazení zakázaných znaků
+            nadpis = re.sub(r'[á]', 'a', nadpis)
             filename = f'{nadpis}.pdf'
             writer = PdfWriter()
             writer.add_page(page)
